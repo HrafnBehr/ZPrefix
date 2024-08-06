@@ -1,22 +1,21 @@
-import './App.css';
-import { useEffect, useState} from 'react';
-const baseURL = "http://localhost:5050/store"
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Store from '../src/Store.js';
+import Login from "../src/LoginPage.js";
+import Account from "../src/createAccount.js";
+
+
 
 function App() {
-  let [store, setStore] = useState([]);
-
-  useEffect(()=>{
-    fetch(baseURL)
-      .then((res) => res.json())
-      .then((data) => {
-        setStore(data);
-      });
-  }, []);
 
   return (
-    <div className="App">
-      {JSON.stringify(store)}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />}/>
+        <Route path="/store" element={<Store />}/>
+        <Route path="/createAccount" element={<Account />}/>
+        {/* <Route path="/yourStore" element={<yourStore />}/> */}
+      </Routes>
+    </Router>
   );
 }
 

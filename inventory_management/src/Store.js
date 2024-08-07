@@ -18,8 +18,15 @@ export default function Store() {
 
   return (
     <div className="App">
-      <button className="returnHome" onClick={() => navigate("/")}>Leave-Store</button><br/>
-      {JSON.stringify(store)}
+      <button className="return" onClick={() => navigate("/")}>Leave-Store</button><br/>
+      <div>
+      <h2>Store's Local Inventory</h2>
+      </div>
+      <div class="available-stock">
+        <ul>
+          {JSON.stringify(store)}
+        </ul>
+      </div>
     </div>
   );
 }

@@ -34,7 +34,7 @@ export default function Account() {
         <p>Password</p>
           <input type= "password" minLength= "8" maxLength= "16" placeholder= " " value={password} onChange={(e) => setPassword(e.target.value)} required/><br/>
         <p>SSN</p>
-          <input type='text' minLength="10" maxLength = "10" require /><br/>
+          <input type='text'/><br/>
         <button className="returnHome" onClick={(e) => startVerifier(e)}>Complete-Registration</button><br/>
         <button className="returnHome" onClick={() => navigate("/")}>Leave-Creation</button><br/>
       </div>
@@ -44,13 +44,13 @@ export default function Account() {
 
 async function Verifier(fname, lname, username, password){
   try {
-    const response = await fetch('http://localhost:3000/createAccount', {
+    const response = await fetch('http://localhost:5050/createAccount', {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',
       },
       body:JSON.stringify({
-        fname, lname, username, password
+        fname: fname, lname: lname, username: username, password: password
       }),
     });
 

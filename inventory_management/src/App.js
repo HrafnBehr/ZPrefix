@@ -2,20 +2,26 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Store from '../src/Store.js';
 import Login from "../src/LoginPage.js";
 import Account from "../src/createAccount.js";
+import SingleItem from "../src/singleItem.js";
+import YourStore from "../src/yourStore.js"
+import {AuthyBoi} from "../src/Authentication.js"
 
 
 
 function App() {
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Login />}/>
-        <Route path="/store" element={<Store />}/>
-        <Route path="/createAccount" element={<Account />}/>
-        {/* <Route path="/yourStore" element={<yourStore />}/> */}
-      </Routes>
-    </Router>
+    <AuthyBoi>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />}/>
+          <Route path="/store" element={<Store />}/>
+          <Route path="/selected/:itemname" element={<SingleItem/>}/>
+          <Route path="/createAccount" element={<Account />}/>
+          <Route path="/yourStore" element={<YourStore />}/>
+        </Routes>
+      </Router>
+    </AuthyBoi>
   );
 }
 

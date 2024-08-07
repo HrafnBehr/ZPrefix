@@ -23,6 +23,24 @@ const app = express();
   // body-parser
   app.use(bodyParser.json());
 
+  function authToken(req, res,next){
+    const authHeader = req.headers['authorization'];
+    const token =  authHeader && authHeader.split(' ')[1];
+
+    if(token == null) {
+      return res.status(401).json({message:"no token!"});
+    }
+
+    jwt.verify(token, 'your_secret_key', (err, user) => {
+      if (err) {
+        return res.status(403).json({ message:"token is wrong nerd."});
+      }
+      req.user = user;
+      next();
+    })
+
+  }
+
 
 //routes
 app.get('/', (req,res) => {
@@ -72,21 +90,35 @@ app.post('/createAccount', async (req, res) => {
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   try{
-    // check if they actually even go here
+    // check if they actually even go here and  know our secret word
     const user = await knex("users").where({username}).first();
-    if (!user){
-      return res.status(400).json({message: "Invalid username"})
+    if (!user || !bcrypt.compareSync(password, user.password)){
+      return res.status(400).json({message: "Invalid username or password"})
     }
-    // check if the password is valid
-    const validPassword = bcrypt.compareSync(password, user.password);
-    if (!validPassword){
-      return res.status(400).json({message: "Invalid password"})
-    };
     // and generate a token  here
     const token = jwt.sign({ id: user.id, username: user.username }, 'your_secret_key', { expiresIn: '1h' });
     res.status(200).json({token, username: user.username});
   } catch (error) {
     res.status(500).json({ message: "Server error, please try again later."});
+  }
+})
+
+app.post('/addItem', authToken, async (req, res) => {
+  const { itemName, description, quantity } = req.body;
+  const userID = req.user.id;
+
+  try{
+    const newItem = await knex('Store').insert({
+      userID: userID,
+      itemName: itemName,
+      description: description,
+      quantity: quantity
+    }).returning("*")
+    res.status(201).json(newItem);
+
+  }catch(error){
+    console.error("couldn't add that one chief", error);
+    res.status(500).json({ message: "Failed to add item"})
   }
 })
 

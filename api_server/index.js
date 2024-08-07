@@ -122,6 +122,18 @@ app.post('/addItem', authToken, async (req, res) => {
   }
 })
 
+app.get('/userItems', authToken, async (req, res) => {
+  const userID = req.user.id;
+
+  try{
+    const items = await knex('Store').where({ userID: userID});
+    res.status(200).json(items);
+  } catch(error){
+    console.error("Could not find your items!");
+    res.status(500).json({ message: "Failed to retrieve your items"})
+  }
+})
+
 //listen
 app.listen(port, ()=>{
   console.log('App listening on port:', port);

@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />}/>
           <Route path="/store" element={<Store />}/>
-          <Route path="/selected/:itemname" element={<SingleItem/>}/>
+          <Route path="/selected/:itemName" element={<SingleItem/>}/>
           <Route path="/createAccount" element={<Account />}/>
           <Route path="/makeItem" element={<ItemCreation />}/>
           <Route path="/yourStore" element={<YourStore />}/>

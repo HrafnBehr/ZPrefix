@@ -48,9 +48,15 @@ app.get('/', (req,res) => {
 })
 
 app.get('/store', (req,res) => {
+  const {search} = req.query;
   knex("Store")
-    .then(data =>{
-      res.status(200).json(data);
+    .modify(queryBuilder =>{
+      if(search){
+        queryBuilder.where('itemName','like',`${search}`);
+      }
+  })
+  .then(data => {
+    res.status(200).json(data);
   })
   .catch((err)=>{
     console.log(err);

@@ -1,7 +1,7 @@
 import './App.css';
 import { useAuth } from '../src/Authentication.js';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function YourStore(){
   const [items, setItems] = useState([]);
@@ -44,14 +44,24 @@ export default function YourStore(){
     <div>
       <h2> Welcome, {auth.user.username}!</h2>
       <p>These are your items!</p>
-      <ul>
-        {items.map(item => (
-          <li key={item.id}>{item.itemName} - {item.description} (Quantity: {item.quantity})</li>
-        ))}
-      </ul>
+      <div className="available-stock">
+        {items.length > 0 ? (
+          <ul>
+            {items.map(item => (
+              <li key={item.id}>
+                <Link to={`/selected/${encodeURIComponent(item.itemName)}`}>
+                  {item.itemName} - {item.description} (Quantity: {item.quantity})
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No Items currently available.</p>
+        )}
+      </div>
       <p> These are your options!</p>
       <button className="return" onClick={() => navigate("/makeItem")}>Make-Item</button>
       <button className="return" onClick={() => navigate("/")}>Leave-Store</button>
     </div>
-  )
+  );
 }

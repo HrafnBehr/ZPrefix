@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const baseURL = "http://localhost:5050/store"
 
@@ -16,20 +16,22 @@ export default function Store() {
       });
   }, []);
 
-  return (
+  return  (
     <div className="App">
-      <button className="return" onClick={() => navigate("/")}>Leave-Store</button><br/>
-      <div>
+      <button className="return" onClick={() => navigate("/")}>Leave Store</button>
       <h2>Store's Local Inventory</h2>
-      </div>
-      <div class="available-stock">
+      <div className="available-stock">
         {store.length > 0 ? (
           <ul>
             {store.map(item => (
-              <li key={item.id}>{item.itemName} - {item.description} (Quantity: {item.quantity})</li>
+              <li key={item.id}>
+                <Link to={`/selected/${encodeURIComponent(item.itemName)}`}>
+                  {item.itemName} - {item.description} (Quantity: {item.quantity})
+                </Link>
+              </li>
             ))}
           </ul>
-        ):(
+        ) : (
           <p>No Items currently available.</p>
         )}
       </div>

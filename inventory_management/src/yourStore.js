@@ -43,37 +43,6 @@ export default function YourStore(){
     return <p>Trouble finding that user...</p>
   }
 
-  const addItem = async (e) => {
-    e.preventDefault();
-    const itemToBeMade = {itemName, description, quantity}
-    try {
-      const response = await fetch('http://localhost:5050/addItem', {
-        method:'POST',
-        headers: {
-          'Content-Type' : 'application/json',
-          'Authorization' : `Bearer ${auth.token}`
-        },
-        body: JSON.stringify(itemToBeMade)
-      });
-
-      if(!response.ok){
-        throw new Error('failed to add to stockpile');
-      }
-
-      const result = await response.json();
-      console.log(result);
-
-      setItems(prevItems=>[...prevItems,  result]);
-      alert('Item added to the stockpile!')
-      setItemName('');
-      setDescription('');
-      setQuantity('');
-    } catch (error) {
-      console.error('Error making that item.', error);
-      alert('Could not place in stockpile');
-    }
-  }
-
   return (
     <div>
       <h2> Welcome, {auth.user.username}!</h2>
@@ -84,12 +53,13 @@ export default function YourStore(){
         ))}
       </ul>
       <p> These are your options!</p>
-      <form onSubmit={addItem}>
+      {/* <form onSubmit={addItem}>
         <input type="text" placeholder="Item Name" value={itemName} onChange={e => setItemName(e.target.value)} required /><br />
         <input type="text" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} required /><br />
         <input type="number" placeholder="quantity" value={quantity} onChange={e => setQuantity(e.target.value)} required /><br />
         <button type="submit">Make-New-Item</button>
-      </form>
+      </form> */}
+      <button className="return" onClick={() => navigate("/makeItem")}>Make-Item</button>
       <button className="return" onClick={() => navigate("/")}>Leave-Store</button>
     </div>
   )

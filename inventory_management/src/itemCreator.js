@@ -48,6 +48,7 @@ const ItemCreation = () => {
         <input type="text" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} required /><br />
         <input type="number" placeholder="quantity" value={quantity} onChange={e => setQuantity(e.target.value)} required /><br />
         <button type="submit">Make-New-Item</button>
+        <button className="return" onClick={() => navigate("/yourStore")}>Return</button>
       </form>
     </div>
   )

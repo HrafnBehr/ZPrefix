@@ -23,9 +23,15 @@ export default function Store() {
       <h2>Store's Local Inventory</h2>
       </div>
       <div class="available-stock">
-        <ul>
-          {JSON.stringify(store)}
-        </ul>
+        {store.length > 0 ? (
+          <ul>
+            {store.map(item => (
+              <li key={item.id}>{item.itemName} - {item.description} (Quantity: {item.quantity})</li>
+            ))}
+          </ul>
+        ):(
+          <p>No Items currently available.</p>
+        )}
       </div>
     </div>
   );

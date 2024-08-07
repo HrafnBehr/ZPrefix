@@ -5,9 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function YourStore(){
   const [items, setItems] = useState([]);
-  const [itemName, setItemName] = useState('');
-  const [description, setDescription] = useState('');
-  const [quantity, setQuantity] = useState('');
   const {auth} = useAuth();
   const navigate = useNavigate();
 
@@ -53,12 +50,6 @@ export default function YourStore(){
         ))}
       </ul>
       <p> These are your options!</p>
-      {/* <form onSubmit={addItem}>
-        <input type="text" placeholder="Item Name" value={itemName} onChange={e => setItemName(e.target.value)} required /><br />
-        <input type="text" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} required /><br />
-        <input type="number" placeholder="quantity" value={quantity} onChange={e => setQuantity(e.target.value)} required /><br />
-        <button type="submit">Make-New-Item</button>
-      </form> */}
       <button className="return" onClick={() => navigate("/makeItem")}>Make-Item</button>
       <button className="return" onClick={() => navigate("/")}>Leave-Store</button>
     </div>

@@ -5,6 +5,7 @@ import Account from "../src/createAccount.js";
 import SingleItem from "../src/singleItem.js";
 import YourStore from "../src/yourStore.js";
 import ItemCreation from "../src/itemCreator.js";
+import EditItem from "../src/Editor.js"
 import {AuthyBoi} from "../src/Authentication.js";
 
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/selected/:itemName" element={<SingleItem/>}/>
           <Route path="/createAccount" element={<Account />}/>
           <Route path="/makeItem" element={<ItemCreation />}/>
+          <Route path="/editItem/:itemID" element={<EditItem />}/>
           <Route path="/yourStore" element={<YourStore />}/>
         </Routes>
       </Router>

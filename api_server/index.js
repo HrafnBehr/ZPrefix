@@ -140,8 +140,37 @@ app.get('/userItems', authToken, async (req, res) => {
   }
 })
 
+app.patch('/Store/:itemID', authToken, async (req,res)=>{
+  const {itemID} = req.params;
+  const {itemName, description, quantity} = req.body;
+
+  try{
+    const userID = req.user.id;
+    const updated = await knex('Store')
+    .where({ id: itemID})
+    .update({
+      userID: userID,
+      itemName: itemName,
+      description: description,
+      quantity: quantity
+      })
+    .catch(err=>console.log(err))
+
+      if(updated){
+        const updatedItem = await knex('Store').where({ id: itemID}).first();
+        res.status(200).json(updatedItem);
+      } else {
+        res.status(404).json({message: "Could not be found, so did not update"});
+      }
+
+  }catch(error){
+    console.error(error)
+    res.status(500).json({message: "failed to update item"});
+  }
+});
+
 app.delete('/selected/:itemID', authToken, async (req,res) => {
-  const {itemID}= req.params;
+  const {itemID} = req.params;
 
   try{
     const deleted = await knex('Store')

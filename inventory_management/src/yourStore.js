@@ -5,37 +5,39 @@ import { useNavigate, Link } from 'react-router-dom';
 
 export default function YourStore(){
   const [items, setItems] = useState([]);
+  // const [updateItem, setUpdateItem] = useState(null);
   const {auth} = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchItems = async () => {
-      if(!auth.token) return;
-
-      try {
-        const response = await fetch('http://localhost:5050/userItems', {
-          method: 'GET',
-          headers: {
-            'Authorization':`Bearer ${auth.token}`
-          }
-        });
-
-        if(!response.ok){
-          throw new Error('Could not find your items');
-        }
-
-        const fetchedItems = await response.json();
-        setItems(fetchedItems);
-
-      }catch (error){
-
-        console.error('Error getting your items', error);
-      }
-    };
     if(auth.user){
       fetchItems();
     }
   },  [auth.user, auth.token]);
+
+  const fetchItems = async () => {
+    if(!auth.token) return;
+
+    try {
+      const response = await fetch('http://localhost:5050/userItems', {
+        method: 'GET',
+        headers: {
+          'Authorization':`Bearer ${auth.token}`
+        }
+      });
+
+      if(!response.ok){
+        throw new Error('Could not find your items');
+      }
+
+      const fetchedItems = await response.json();
+      setItems(fetchedItems);
+
+    }catch (error){
+
+      console.error('Error getting your items', error);
+    }
+  };
 
   const deleteItem = async (itemID) => {
 
@@ -47,7 +49,9 @@ export default function YourStore(){
         }
       });
 
-      if(!response.ok) throw new Error('Could not be removed');
+      if(!response.ok){
+        throw new Error('Could not be removed');
+      }
 
       alert('Item removed!');
       setItems(prevItems => prevItems.filter(item  => item.id !== itemID));
@@ -76,6 +80,7 @@ export default function YourStore(){
                 <Link to={`/selected/${encodeURIComponent(item.itemName)}`}>
                   {item.itemName} - {item.description} (Quantity: {item.quantity})
                 </Link>
+                <button onClick={()=> navigate(`/editItem/${item.id}`)}>Edit</button>
                 <button onClick={()=> deleteItem(item.id)}>Remove</button>
               </li>
             ))}

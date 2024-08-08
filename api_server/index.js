@@ -140,6 +140,24 @@ app.get('/userItems', authToken, async (req, res) => {
   }
 })
 
+app.delete('/selected/:itemID', authToken, async (req,res) => {
+  const {itemID}= req.params;
+
+  try{
+    const deleted = await knex('Store')
+      .where({ id: itemID })
+      .del();
+    if (deleted){
+      res.status(200).json({message: "Item removed"});
+    } else {
+      res.status(404).json({message: "Could not be found, so did not remove"});
+    }
+  } catch(error){
+    console.error("Could not delete  the item")
+    res.status(500).json({message: "failed to remove item"});
+  }
+})
+
 //listen
 app.listen(port, ()=>{
   console.log('App listening on port:', port);

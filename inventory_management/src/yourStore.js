@@ -26,14 +26,38 @@ export default function YourStore(){
 
         const fetchedItems = await response.json();
         setItems(fetchedItems);
+
       }catch (error){
-        console.error('Error getting your items');
+
+        console.error('Error getting your items', error);
       }
     };
     if(auth.user){
       fetchItems();
     }
   },  [auth.user, auth.token]);
+
+  const deleteItem = async (itemID) => {
+
+    try{
+      const response = await fetch(`http://localhost:5050/selected/${itemID}`, {
+        method:'DELETE',
+        headers:{
+          'Authorization': `Bearer ${auth.token}`
+        }
+      });
+
+      if(!response.ok) throw new Error('Could not be removed');
+
+      alert('Item removed!');
+      setItems(prevItems => prevItems.filter(item  => item.id !== itemID));
+
+    } catch (error) {
+
+      console.error('Could not remove item', error);
+      alert('Could not remove item!')
+    }
+  }
 
 
   if(!auth.user){
@@ -52,6 +76,7 @@ export default function YourStore(){
                 <Link to={`/selected/${encodeURIComponent(item.itemName)}`}>
                   {item.itemName} - {item.description} (Quantity: {item.quantity})
                 </Link>
+                <button onClick={()=> deleteItem(item.id)}>Remove</button>
               </li>
             ))}
           </ul>

@@ -35,8 +35,8 @@ export default function Login() {
   }
 
   return (
-    <div>
-      <div class = "loginMenu">
+    <div className = "Form">
+      <div className = "loginMenu">
         <form  onSubmit={handleLogin}>
           <p>Username</p>
             <input type='text' value={username} onChange={(e)=>setUsername(e.target.value)} required /><br/>

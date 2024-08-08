@@ -69,7 +69,7 @@ export default function YourStore(){
   }
 
   return (
-    <div>
+    <div className="Form">
       <h2> Welcome, {auth.user.username}!</h2>
       <p>These are your items!</p>
       <div className="available-stock">

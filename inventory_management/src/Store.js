@@ -17,7 +17,7 @@ export default function Store() {
   }, []);
 
   return  (
-    <div className="App">
+    <div className="Form">
       <button className="return" onClick={() => navigate("/")}>Leave Store</button>
       <h2>Store's Local Inventory</h2>
       <div className="available-stock">

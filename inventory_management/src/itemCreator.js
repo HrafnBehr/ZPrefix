@@ -1,3 +1,4 @@
+import './App.css';
 import { useState } from 'react';
 import { useAuth } from '../src/Authentication.js';
 import { useNavigate } from 'react-router-dom';
@@ -42,7 +43,7 @@ const ItemCreation = () => {
   };
 
   return (
-    <div>
+    <div className = "Form">
       <form onSubmit={addItem}>
         <input type="text" placeholder="Item Name" value={itemName} onChange={e => setItemName(e.target.value)} required /><br />
         <input type="text" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} required /><br />

@@ -23,7 +23,7 @@ export default function Account() {
   }
 
   return (
-    <div>
+    <div className = "Form">
       <div class = "accountCreation">
         <p>First Name</p>
           <input type= "text" minLength= "1" maxLength= "25" placeholder= " " value={fname} onChange={(e) => setFname(e.target.value)} required/><br/>

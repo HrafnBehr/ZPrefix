@@ -28,7 +28,7 @@ export default function SingleItem(){
   }
 
   return (
-    <div>
+    <div className ="Form">
       <button className="return" onClick={() => navigate("/Store")}>Return</button>
       <button className="return" onClick={() => navigate("/yourStore")}>Your Section</button><br/><br/>
       <p>Details</p>

@@ -1,10 +1,10 @@
+import './App.css';
 import { useAuth } from '../src/Authentication.js';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const EditItem = () => {
   const {itemID} = useParams();
-  console.log(itemID);
   const {auth} = useAuth();
   const [itemName, setItemName] = useState('');
   const [description, setDescription] = useState('');
@@ -31,7 +31,6 @@ const EditItem = () => {
         setQuantity(itemDetails.quantity);
       }catch(error){
         console.error('Error grabbing that items details.', error);
-        alert('Could not get details');
       }
     };
 
@@ -62,16 +61,15 @@ const EditItem = () => {
       navigate('/yourStore');
     } catch (error) {
       console.error('Error changing that items details.', error);
-      alert('Could not change details');
     }
   };
 
   return (
-    <div>
+    <div className = "Form">
       <form onSubmit={editBoi}>
-        <input type="text" placeholder="Item Name" value={itemName} onChange={e => setItemName(e.target.value)} required /><br />
-        <input type="text" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} required /><br />
-        <input type="number" placeholder="quantity" value={quantity} onChange={e => setQuantity(e.target.value)} required /><br />
+        <input type="text" placeholder={itemName} value={itemName} onChange={e => setItemName(e.target.value)} required /><br />
+        <input type="text" placeholder={description} value={description} onChange={e => setDescription(e.target.value)} required /><br />
+        <input type="number" placeholder={quantity} value={quantity} onChange={e => setQuantity(e.target.value)} required /><br />
         <button type="submit">Update-Item</button>
         <button className="return" onClick={() => navigate("/yourStore")}>Cancel-Edit</button>
       </form>

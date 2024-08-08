@@ -143,13 +143,12 @@ app.get('/userItems', authToken, async (req, res) => {
 app.patch('/Store/:itemID', authToken, async (req,res)=>{
   const {itemID} = req.params;
   const {itemName, description, quantity} = req.body;
+  const userID = req.user.id;
 
   try{
-    const userID = req.user.id;
     const updated = await knex('Store')
-    .where({ id: itemID})
+    .where({ id: itemID, userID: userID})
     .update({
-      userID: userID,
       itemName: itemName,
       description: description,
       quantity: quantity

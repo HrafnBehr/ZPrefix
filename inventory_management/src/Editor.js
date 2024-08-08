@@ -67,9 +67,9 @@ const EditItem = () => {
   return (
     <div className = "Form">
       <form onSubmit={editBoi}>
-        <input type="text" placeholder={itemName} value={itemName} onChange={e => setItemName(e.target.value)} required /><br />
-        <input type="text" placeholder={description} value={description} onChange={e => setDescription(e.target.value)} required /><br />
-        <input type="number" placeholder={quantity} value={quantity} onChange={e => setQuantity(e.target.value)} required /><br />
+        <input type="text" placeholder="Enter new name" value={itemName} onChange={e => setItemName(e.target.value)} required /><br />
+        <input type="text" placeholder="Enter new description" value={description} onChange={e => setDescription(e.target.value)} required /><br />
+        <input type="number" placeholder="Enter new quantity" value={quantity} onChange={e => setQuantity(e.target.value)} required /><br />
         <button type="submit">Update-Item</button>
         <button className="return" onClick={() => navigate("/yourStore")}>Cancel-Edit</button>
       </form>

@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 const ItemCreation = () => {
   const {auth} = useAuth();
-  const [items, setItems] = useState([]);
   const [itemName, setItemName] = useState('');
   const [description, setDescription] = useState('');
   const [quantity, setQuantity] = useState('');
